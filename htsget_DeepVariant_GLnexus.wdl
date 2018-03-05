@@ -26,4 +26,3 @@ workflow htsget_DeepVariant_GLnexus {
         File pvcf_gz = GLnexus.pvcf_gz
     }
 }
-
