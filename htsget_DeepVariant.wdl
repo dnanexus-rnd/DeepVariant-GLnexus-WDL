@@ -2,7 +2,7 @@
 # calling across a given list of genomic ranges (typically chromosomes),
 # fetching the necessary BAM slices using htsget.
 
-import "DeepVariant.wdl" as sub
+import "DeepVariant.wdl" as dv
 
 workflow htsget_DeepVariant {
     # reference genome
@@ -34,7 +34,7 @@ workflow htsget_DeepVariant {
             format = htsget_format,
             hts_ref_tar = htsget_ref_tar
         }
-        call sub.DeepVariant { input:
+        call dv.DeepVariant { input:
             ref_fasta_gz = ref_fasta_gz,
             range = range,
             bam = htsget.bam,
