@@ -21,6 +21,9 @@ workflow htsget_DeepVariant_GLnexus {
     Int? gvcf_gq_binsize
     String? deepvariant_docker
 
+    # pVCF output name
+    String output_name
+
     scatter (accession in accessions) {
         call swf.htsget_DeepVariant as hgdv { input:
             accession = accession,
@@ -38,7 +41,8 @@ workflow htsget_DeepVariant_GLnexus {
     call GLnexus { input:
         gvcf = hgdv.gvcf_gz,
         ranges = ranges,
-        config = "DeepVariant"
+        config = "DeepVariant",
+        output_name = output_name
     }
 
     output {
