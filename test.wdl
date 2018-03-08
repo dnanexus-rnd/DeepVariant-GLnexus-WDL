@@ -13,7 +13,7 @@ task check_outputs {
 
   command {
     set -ex -o pipefail
-    [ -s "${pvcf}" ] || exit 1
+    [ -s "${pvcf_gz}" ] || exit 1
   }
 }
 
