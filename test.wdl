@@ -4,12 +4,12 @@ workflow DVGLx_test {
   call main.htsget_DeepVariant_GLnexus
   call check_outputs {
     input:
-      pvcf = htsget_DeepVariant_GLnexus.pvcf
+      pvcf_gz = htsget_DeepVariant_GLnexus.pvcf_gz
   }
 }
 
 task check_outputs {
-  File pvcf
+  File pvcf_gz
 
   command {
     set -ex -o pipefail
