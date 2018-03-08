@@ -1,9 +1,9 @@
 {
     "DVGLx_test.htsget_DeepVariant_GLnexus.accessions": ["NA12878","NA12891","NA12892"],
-    "DVGLx_test.htsget_DeepVariant_GLnexus.ranges": ["chr21:1-46709983","chr22:1-50818468"],
+    "DVGLx_test.htsget_DeepVariant_GLnexus.ranges": ["chr12:111766922-111817529","chr17:43045629-43125483"],
     "DVGLx_test.htsget_DeepVariant_GLnexus.ref_fasta_gz": "dx://file-BFBv6J80634gkvZ6z100VGpp",
     "DVGLx_test.htsget_DeepVariant_GLnexus.htsget_format": "CRAM",
     "DVGLx_test.htsget_DeepVariant_GLnexus.model_tar": "dx://file-F9pj2V00j1V2B0By3ZvJ6fYg",
     "DVGLx_test.htsget_DeepVariant_GLnexus.deepvariant_docker": "quay.io/mlin/deepvariant:0.5.1",
-    "DVGLx_test.htsget_DeepVariant_GLnexus.output_name": "CEUtrio.21_22"
+    "DVGLx_test.htsget_DeepVariant_GLnexus.output_name": "CEUtrio.ALDH2_BRCA1"
 }
