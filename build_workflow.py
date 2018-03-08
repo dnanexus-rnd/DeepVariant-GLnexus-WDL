@@ -45,7 +45,7 @@ def main():
         run_cmd=[
             "dx", "run", twf.get_id(),
             "--destination", "{}:{}".format(project.get_id(), test_folder),
-            "--name", "DVGLx {} test".format(git_revision),
+            "--name", "DVGLx test {}".format(git_revision),
             "-f", "test.input.dx.json",
             "-y"
         ]
