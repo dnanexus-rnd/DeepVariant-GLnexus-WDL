@@ -1,6 +1,6 @@
 {
-    "DVGLx_test.htsget_DeepVariant_GLnexus.common.accessions": ["NA12878","NA12891","NA12892"],
-    "DVGLx_test.htsget_DeepVariant_GLnexus.common.ranges": ["chr21:1-46709983","chr22:1-50818468"],
+    "DVGLx_test.htsget_DeepVariant_GLnexus.accessions": ["NA12878","NA12891","NA12892"],
+    "DVGLx_test.htsget_DeepVariant_GLnexus.ranges": ["chr21:1-46709983","chr22:1-50818468"],
     "DVGLx_test.htsget_DeepVariant_GLnexus.ref_fasta_gz": "dx://file-BFBv6J80634gkvZ6z100VGpp",
     "DVGLx_test.htsget_DeepVariant_GLnexus.htsget_format": "CRAM",
     "DVGLx_test.htsget_DeepVariant_GLnexus.model_tar": "dx://file-F9pj2V00j1V2B0By3ZvJ6fYg",
