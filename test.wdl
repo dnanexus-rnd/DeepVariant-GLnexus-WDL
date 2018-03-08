@@ -13,7 +13,11 @@ task check_outputs {
 
   command {
     set -ex -o pipefail
-    [ -s "${pvcf_gz}" ] || exit 1
+    actual=$(zcat "${pvcf_gz}" | grep -v \# | cut -f1 | uniq -c | tr -d ' ' | tr '\n' ,)
+    expected="19chr12,185chr17,"
+    if [ "$actual" != "$expected" ]; then
+      exit 1
+    fi
   }
 }
 
