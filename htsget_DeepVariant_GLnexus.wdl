@@ -6,10 +6,32 @@ workflow htsget_DeepVariant_GLnexus {
     Array[String]+ accessions
     Array[String]+ ranges
 
+    # reference genome
+    File ref_fasta_gz
+    
+    # htsget advanced settings
+    String? htsget_endpoint
+    String? htsget_format
+    File? htsget_ref_tar
+
+    # DeepVariant model files (tar with no folder component)
+    File model_tar
+
+    # DeepVariant advanced settings
+    Int? gvcf_gq_binsize
+    String? deepvariant_docker
+
     scatter (accession in accessions) {
         call swf.htsget_DeepVariant as hgdv { input:
             accession = accession,
-            ranges = ranges
+            ranges = ranges,
+            ref_fasta_gz = ref_fasta_gz,
+            htsget_endpoint = htsget_endpoint,
+            htsget_format = htsget_format,
+            htsget_ref_tar = htsget_ref_tar,
+            model_tar = model_tar,
+            gvcf_gq_binsize = gvcf_gq_binsize,
+            deepvariant_docker = deepvariant_docker
         }
     }
 
