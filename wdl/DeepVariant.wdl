@@ -20,7 +20,8 @@ workflow DeepVariant {
     # reference genome
     File ref_fasta_gz
 
-    # Genomic range(s) to call. Either range or ranges_bed is required
+    # Genomic range(s) to call. Provide at most one of range or ranges_bed.
+    # If neither is provided, calls the whole reference genome.
     String? range       # e.g. chr12:111766922-111817529
     File? ranges_bed
 
@@ -76,7 +77,8 @@ task make_examples {
     File bam
     File? bai
 
-    # Genomic range to run on. Either range or ranges_bed is required.
+    # Genomic range(s) to run on. Provide at most one of range or ranges_bed.
+    # If neither is provided, calls the whole reference genome.
     String? range       # e.g. chr12:111766922-111817529
     File? ranges_bed
 
@@ -89,13 +91,12 @@ task make_examples {
     }
 
     command <<<
-        range_arg="${range}"
-        if [ -n "${ranges_bed}" ]; then
-            range_arg="${ranges_bed}"
+        range_arg=""
+        if [ -n "${range}" ]; then
+            range_arg="--regions ${range}"
         fi
-        if [ -z "$range_arg" ]; then
-            1>&2 echo "Either range or ranges_bed is required"
-            exit 1
+        if [ -n "${ranges_bed}" ]; then
+            range_arg="--regions ${ranges_bed}"
         fi
         binsize_arg=""
         if [ -n "${gvcf_gq_binsize}" ]; then
@@ -121,7 +122,7 @@ task make_examples {
         gvcf_fn="gvcf/$output_name.gvcf.tfrecord@$(nproc).gz"
 
         seq 0 $(( `nproc` - 1 )) | NO_GCE_CHECK=True parallel --halt 2 -t --results logs/ \
-            "/opt/deepvariant/bin/make_examples --mode calling --ref ref.fasta --reads input.bam --examples '$output_fn' --gvcf '$gvcf_fn' --task {} --regions '$range_arg' $binsize_arg 2>&1" > /dev/null
+            "/opt/deepvariant/bin/make_examples --mode calling --ref ref.fasta --reads input.bam --examples '$output_fn' --gvcf '$gvcf_fn' --task {} $range_arg $binsize_arg 2>&1" > /dev/null
 
         mkdir tar/
         tar -cvzf "tar/$output_name.logs.tar.gz" -C logs/ .
