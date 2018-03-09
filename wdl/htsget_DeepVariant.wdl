@@ -1,6 +1,38 @@
 # Use DeepVariant to generate VCF & gVCF for one sample. Scatters the variant
 # calling across a given list of genomic ranges (typically chromosomes),
 # fetching the necessary BAM slices using htsget.
+#
+#              +--------------------------------------------------------------------------------+
+#              |                                                                                |
+#              |  htsget_DeepVariant.wdl                                                        |
+#              |                                                                                |
+#              |       +-----------------+    +-------------------+                             |
+#              |       |                 |    |                   |  range gVCF                 |
+#              |   +--->  htsget client  |---->  DeepVariant.wdl  |---+                         |
+#              |   |   |  (samtools)     |    |                   |   |                         |
+#              |   |   |                 |    +-------------------+   |                         |
+# sample ID    |   |   +-----------------+                            |  +-------------------+  |
+#              |   |                                                  +-->                   |  |
+#    ranges -------+---> ...                  ...                 ... --->  bcftools concat  +-----> sample gVCF
+#              |   |                                                  +-->                   |  |
+#              |   |   +-----------------+                            |  +-------------------+  |
+#              |   |   |                 |    +-------------------+   |                         |
+#              |   +--->  htsget client  |    |                   |   |                         |
+#              |       |  (samtools)     |---->  DeepVariant.wdl  |---+                         |
+#              |       |                 |    |                   |  range gVCF                 |
+#              |       +------------^----+    +-------------------+                             |
+#              |            |       |                                                           |
+#              |            |       |                                                           |
+#              +------------|-------|-----------------------------------------------------------+
+#                           |       |
+#                sample ID  |       |
+#                    range  |       |  range BAM
+#                           |       |
+#                      +----v------------+
+#                      |                 |
+#                      |  htsget server  |
+#                      |                 |
+#                      +-----------------+
 
 import "DeepVariant.wdl" as dv
 

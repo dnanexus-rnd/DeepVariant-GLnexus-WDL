@@ -1,14 +1,30 @@
 # Use DeepVariant to generate VCF & gVCF for one sample
+# ref: https://github.com/google/deepvariant/blob/r0.5/docs/deepvariant-gvcf-support.md
+#
+#              +----------------------------------------------------------------------------+
+#              |                                                                            |
+#              |  DeepVariant.wdl                                                           |
+#              |                                                                            |
+#              |  +-----------------+    +-----------------+    +------------------------+  |
+# sample.bam   |  |                 |    |                 |    |                        |  |
+#  genome.fa ----->  make_examples  |---->  call_variants  |---->  postprocess_variants  |-----> gVCF
+#      range   |  |                 |    |                 |    |                        |  |
+#              |  +-----------------+    +--------^--------+    +------------------------+  |
+#              |                                  |                                         |
+#              |                                  |                                         |
+#              +----------------------------------|-----------------------------------------+
+#                                                 |
+#                                        DeepVariant Model
 
 workflow DeepVariant {
     # reference genome
     File ref_fasta_gz
 
     # Genomic range(s) to call. Either range or ranges_bed is required
-    String? range
+    String? range       # e.g. chr12:111766922-111817529
     File? ranges_bed
 
-    # Read alignments - bam & bai (bai will be generated if not provided)
+    # Read alignments - bam & bai (bai auto-generated if omitted)
     # The output vcf/gvcf filename is derived from the bam's.
     File bam
     File? bai
@@ -56,12 +72,12 @@ workflow DeepVariant {
 task make_examples {
     File ref_fasta_gz
 
-    # bam & bai (bai can be omitted in which case it will be generated temporarily)
+    # bam & bai (bai auto-generated if omitted)
     File bam
     File? bai
 
     # Genomic range to run on. Either range or ranges_bed is required.
-    String? range
+    String? range       # e.g. chr12:111766922-111817529
     File? ranges_bed
 
     Int? gvcf_gq_binsize

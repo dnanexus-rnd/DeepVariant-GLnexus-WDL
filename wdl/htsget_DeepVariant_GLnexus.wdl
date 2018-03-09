@@ -1,5 +1,26 @@
 # Scatter the htsget_DeepVariant workflow on several sample accessions, then
 # use GLnexus to merge the resulting gVCFs.
+#
+#               +-----------------------------------------------------------+
+#               |                                                           |
+#               |  htsget_DeepVariant_GLnexus.wdl                           |
+#               |                                                           |
+#               |       +--------------------------+                        |
+#               |       |                          |   sample gVCF          |
+#               |   +--->  htsget_DeepVariant.wdl  |----+                   |
+#               |   |   |                          |    |                   |
+#               |   |   +--------------------------+    |    +-----------+  |
+#               |   |                                   +---->           |  |
+# sample IDs -------+---> ...                      ...  ----->  GLnexus  +----> project VCF
+#               |   |                                   +---->           |  |
+#               |   |   +--------------------------+    |    +-----------+  |
+#               |   |   |                          |    |                   |
+#               |   +--->  htsget_DeepVariant.wdl  |----+                   |
+#               |       |                          |   sample gVCF          |
+#               |       +--------------------------+                        |
+#               |                                                           |
+#               +-----------------------------------------------------------+
+
 import "htsget_DeepVariant.wdl" as swf
 
 workflow htsget_DeepVariant_GLnexus {
