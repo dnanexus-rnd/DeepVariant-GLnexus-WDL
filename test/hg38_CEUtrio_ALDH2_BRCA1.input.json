@@ -5,7 +5,7 @@
     "DVGLx_test.htsget_DeepVariant_GLnexus.ranges": ["chr12:111766922-111817529","chr17:43045629-43125483"],
     "DVGLx_test.htsget_DeepVariant_GLnexus.ref_fasta_gz": "dx://file-BFBv6J80634gkvZ6z100VGpp",
     "DVGLx_test.htsget_DeepVariant_GLnexus.model_tar": "dx://file-F9pj2V00j1V2B0By3ZvJ6fYg",
-    "DVGLx_test.htsget_DeepVariant_GLnexus.deepvariant_docker": "quay.io/mlin/deepvariant:0.5.1",
+    "DVGLx_test.htsget_DeepVariant_GLnexus.deepvariant_docker": "quay.io/mlin/deepvariant:0.5.2",
     "DVGLx_test.htsget_DeepVariant_GLnexus.output_name": "hg38_CEUtrio_ALDH2_BRCA1",
     "DVGLx_test.check_outputs.expected": "19chr12,185chr17,"
 }

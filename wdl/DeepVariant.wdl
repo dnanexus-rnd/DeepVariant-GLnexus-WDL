@@ -21,7 +21,7 @@ workflow DeepVariant {
 
     # DeepVariant docker image tag
     # c.f. https://github.com/google/deepvariant/blob/master/docs/deepvariant-docker.md
-    String? deepvariant_docker = "gcr.io/deepvariant-docker/deepvariant:0.5.1"
+    String? deepvariant_docker = "gcr.io/deepvariant-docker/deepvariant:0.5.2"
 
     call make_examples { input:
         ref_fasta_gz = ref_fasta_gz,

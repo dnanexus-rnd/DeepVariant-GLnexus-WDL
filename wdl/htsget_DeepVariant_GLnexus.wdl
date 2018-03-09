@@ -3,7 +3,10 @@
 import "htsget_DeepVariant.wdl" as swf
 
 workflow htsget_DeepVariant_GLnexus {
+    # sample accessions
     Array[String]+ accessions
+
+    # genomic ranges to scatter on in htsget_DeepVariant.wdl
     Array[String]+ ranges
 
     # htsget settings
