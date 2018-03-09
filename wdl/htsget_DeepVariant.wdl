@@ -8,11 +8,13 @@ workflow htsget_DeepVariant {
     # reference genome
     File ref_fasta_gz
 
+    # htsget endpoint e.g. https://htsnexus.rnd.dnanex.us/v1/reads/BroadHiSeqX_b37
+    String htsget_endpoint
+
     # sample to be fetched using htsget e.g. NA12878
     String accession
 
     # htsget advanced settings
-    String? htsget_endpoint
     String? htsget_format
     File? htsget_ref_tar
 
@@ -62,8 +64,8 @@ workflow htsget_DeepVariant {
 
 # retrieve a BAM slice using htsget
 task htsget {
-    # htsget endpoint
-    String? endpoint = "https://htsnexus.rnd.dnanex.us/v1/reads/BroadHiSeqX_hg38"
+    # htsget endpoint e.g. https://htsnexus.rnd.dnanex.us/v1/reads/BroadHiSeqX_b37
+    String endpoint
 
     # accession/sample ID e.g. NA12878
     String accession

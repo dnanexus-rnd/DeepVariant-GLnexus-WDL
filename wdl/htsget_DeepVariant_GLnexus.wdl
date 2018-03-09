@@ -6,13 +6,13 @@ workflow htsget_DeepVariant_GLnexus {
     Array[String]+ accessions
     Array[String]+ ranges
 
-    # reference genome
-    File ref_fasta_gz
-    
-    # htsget advanced settings
-    String? htsget_endpoint
+    # htsget settings
+    String htsget_endpoint
     String? htsget_format
     File? htsget_ref_tar
+
+    # reference genome
+    File ref_fasta_gz
 
     # DeepVariant model files (tar with no folder component)
     File model_tar

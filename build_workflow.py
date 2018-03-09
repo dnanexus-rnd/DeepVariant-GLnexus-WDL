@@ -37,27 +37,29 @@ def main():
     wf = dxWDL(here+"/wdl/htsget_DeepVariant_GLnexus.wdl", project, args.folder)
     print("workflow: {} ({})".format(wf.name, wf.get_id()))
 
-    # build and run the test, if desired
+    # build and run the tests, if desired
     if args.test:
         test_folder=args.folder+"/test"
         print("test folder: {}".format(test_folder))
         project.new_folder(test_folder)
-        twf = dxWDL(here+"/test/test.wdl", project, test_folder, reorg=False, inputs=here+"/test/test.input.json")
-        print("test workflow: {} ({})".format(twf.name, twf.get_id()))
-        run_cmd=[
-            "dx", "run", twf.get_id(),
-            "--destination", "{}:{}".format(project.get_id(), test_folder),
-            "--name", "DVGLx test {}".format(git_revision),
-            "-f", here+"/test/test.input.dx.json",
-            "-y"
-        ]
-        if args.no_wait:
-            subprocess.check_call(run_cmd)
-        else:
+        analyses = []
+        for test in ["b37_CEUtrio_ALDH2_BRCA1", "hg38_CEUtrio_ALDH2_BRCA1"]:
+            twf = dxWDL(here+"/test/test.wdl", project, test_folder, reorg=False, quiet=True,
+                        inputs="{}/test/{}.input.json".format(here, test))
+            run_cmd=[
+                "dx", "run", twf.get_id(),
+                "--destination", "{}:{}".format(project.get_id(), test_folder),
+                "--name", "DVGLx test {} {}".format(git_revision, test),
+                "-f", "{}/test/{}.input.dx.json".format(here, test),
+                "-y", "--brief"
+            ]
+            analysis = subprocess.check_output(run_cmd).strip()
+            print("{}\t{}".format(test, analysis))
+            analyses.append(analysis)
+        if not args.no_wait:
             noise = subprocess.Popen(["/bin/bash", "-c", "while true; do sleep 60; date; done"])
-            run_cmd = run_cmd + ["--wait"]
             try:
-                subprocess.check_call(run_cmd)
+                subprocess.check_call(["dx","wait"] + analyses)
                 print("success")
             finally:
                 noise.kill()
@@ -77,7 +79,7 @@ def ensure_dxWDL():
         subprocess.check_call(download_cmd)
     return dxWDL_local_path
 
-def dxWDL(filename, project, folder, reorg=True, inputs=None):
+def dxWDL(filename, project, folder, reorg=True, inputs=None, quiet=False):
     dxWDL_path = ensure_dxWDL()
     cmd = ["java", "-jar", dxWDL_path, "compile",
            os.path.join(here, filename),
@@ -88,6 +90,8 @@ def dxWDL(filename, project, folder, reorg=True, inputs=None):
         cmd = cmd + ["--inputs", inputs]
     if reorg:
         cmd = cmd + ["--reorg"]
+    if quiet:
+        cmd = cmd + ["--quiet"]
 
     buf = subprocess.check_output(cmd)
     wfid = buf.strip()

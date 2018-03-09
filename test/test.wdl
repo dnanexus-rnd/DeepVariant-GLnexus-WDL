@@ -10,12 +10,12 @@ workflow DVGLx_test {
 
 task check_outputs {
   File pvcf_gz
+  String expected
 
   command {
     set -ex -o pipefail
     actual=$(zcat "${pvcf_gz}" | grep -v \# | cut -f1 | uniq -c | tr -d ' ' | tr '\n' ,)
-    expected="19chr12,185chr17,"
-    if [ "$actual" != "$expected" ]; then
+    if [ "$actual" != "${expected}" ]; then
       exit 1
     fi
   }
