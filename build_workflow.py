@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# Build the workflow to DNAnexus, and optionally test it. Assumes dx-toolkit
+# is installed and configured
 from __future__ import print_function
 import dxpy
 import argparse
@@ -32,7 +34,7 @@ def main():
     print("folder: {}".format(args.folder))
 
     # build the workflow
-    wf = dxWDL("htsget_DeepVariant_GLnexus.wdl", project, args.folder)
+    wf = dxWDL(here+"/wdl/htsget_DeepVariant_GLnexus.wdl", project, args.folder)
     print("workflow: {} ({})".format(wf.name, wf.get_id()))
 
     # build and run the test, if desired
@@ -40,13 +42,13 @@ def main():
         test_folder=args.folder+"/test"
         print("test folder: {}".format(test_folder))
         project.new_folder(test_folder)
-        twf = dxWDL("test.wdl", project, test_folder, reorg=False, inputs="test.input.json")
+        twf = dxWDL(here+"/test/test.wdl", project, test_folder, reorg=False, inputs=here+"/test/test.input.json")
         print("test workflow: {} ({})".format(twf.name, twf.get_id()))
         run_cmd=[
             "dx", "run", twf.get_id(),
             "--destination", "{}:{}".format(project.get_id(), test_folder),
             "--name", "DVGLx test {}".format(git_revision),
-            "-f", "test.input.dx.json",
+            "-f", here+"/test/test.input.dx.json",
             "-y"
         ]
         if args.no_wait:
@@ -79,8 +81,9 @@ def dxWDL(filename, project, folder, reorg=True, inputs=None):
     dxWDL_path = ensure_dxWDL()
     cmd = ["java", "-jar", dxWDL_path, "compile",
            os.path.join(here, filename),
-           "--project", project.get_id(),
-           "--folder", folder]
+           "-project", project.get_id(),
+           "-folder", folder,
+           "-imports", here+"/wdl"]
     if inputs:
         cmd = cmd + ["--inputs", inputs]
     if reorg:
