@@ -51,7 +51,7 @@ def main():
                 "--destination", "{}:{}".format(project.get_id(), test_folder),
                 "--name", "DVGLx test {} {}".format(git_revision, test),
                 "-f", "{}/test/{}.input.dx.json".format(here, test),
-                "-y", "--brief"
+                "-y", "--brief", "--priority", "normal"
             ]
             analysis = subprocess.check_output(run_cmd).strip()
             print("{}\t{}".format(test, analysis))
