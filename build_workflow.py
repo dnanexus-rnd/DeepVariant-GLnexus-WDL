@@ -10,7 +10,7 @@ import subprocess
 import json
 import time
 
-dxWDL_version="0.60.2"
+dxWDL_version="0.61.1"
 here = os.getcwd()
 git_revision = subprocess.check_output(["git", "describe", "--always", "--dirty", "--tags"], cwd=here).strip()
 
