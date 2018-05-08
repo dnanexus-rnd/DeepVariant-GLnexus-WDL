@@ -10,7 +10,7 @@ import subprocess
 import json
 import time
 
-dxWDL_version="0.61.1"
+dxWDL_version="0.63"
 here = os.getcwd()
 git_revision = subprocess.check_output(["git", "describe", "--always", "--dirty", "--tags"], cwd=here).strip()
 
@@ -72,7 +72,7 @@ def ensure_dxWDL():
         # download the jar file
         download_cmd = [
             "wget", "-nv",
-            "https://github.com/dnanexus-rnd/dxWDL/releases/download/{}/{}".format(dxWDL_version, dxWDL_fullname),
+            "https://github.com/dnanexus/dxWDL/releases/download/{}/{}".format(dxWDL_version, dxWDL_fullname),
             "-O",
             dxWDL_local_path]
         print(" ".join(download_cmd))

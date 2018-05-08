@@ -1,10 +1,10 @@
 {
-    "DVGLx_test.htsget_DeepVariant_GLnexus.accessions": ["NA12878","NA12891","NA12892"],
-    "DVGLx_test.htsget_DeepVariant_GLnexus.htsget_endpoint": "https://htsnexus.rnd.dnanex.us/v1/reads/BroadHiSeqX_b37",
-    "DVGLx_test.htsget_DeepVariant_GLnexus.ranges": ["12:112204691-112247789","17:41196312-41277500"],
-    "DVGLx_test.htsget_DeepVariant_GLnexus.ref_fasta_gz": "dx://file-B4489fPVqfgPBXvY5x3Q000Y",
-    "DVGLx_test.htsget_DeepVariant_GLnexus.model_tar": "dx://file-FFP6xZ804PyP2v25G2B7b44y",
-    "DVGLx_test.htsget_DeepVariant_GLnexus.deepvariant_docker": "quay.io/mlin/deepvariant:0.6.0",
-    "DVGLx_test.htsget_DeepVariant_GLnexus.output_name": "b37_CEUtrio_ALDH2_BRCA1",
-    "DVGLx_test.check_outputs.expected": "1612,19017,"
+    "DVGLx_test.accessions": ["NA12878","NA12891","NA12892"],
+    "DVGLx_test.htsget_endpoint": "https://htsnexus.rnd.dnanex.us/v1/reads/BroadHiSeqX_b37",
+    "DVGLx_test.ranges": ["12:112204691-112247789","17:41196312-41277500"],
+    "DVGLx_test.ref_fasta_gz": "dx://file-B4489fPVqfgPBXvY5x3Q000Y",
+    "DVGLx_test.model_tar": "dx://file-FFP6xZ804PyP2v25G2B7b44y",
+    "DVGLx_test.deepvariant_docker": "quay.io/mlin/deepvariant:0.6.0",
+    "DVGLx_test.output_name": "b37_CEUtrio_ALDH2_BRCA1",
+    "DVGLx_test.expected": "1612,19017,"
 }
