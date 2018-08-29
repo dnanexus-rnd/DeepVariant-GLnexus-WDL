@@ -38,7 +38,8 @@ workflow DeepVariant {
 
     # DeepVariant docker image tag
     # c.f. https://github.com/google/deepvariant/blob/master/docs/deepvariant-docker.md
-    String? deepvariant_docker = "gcr.io/deepvariant-docker/deepvariant:0.6.1"
+    String? deepvariant_docker
+    String deepvariant_docker_default = select_first([deepvariant_docker,"gcr.io/deepvariant-docker/deepvariant:0.6.1"])
 
     call make_examples { input:
         ref_fasta_gz = ref_fasta_gz,
@@ -47,20 +48,20 @@ workflow DeepVariant {
         bam = bam,
         bai = bai,
         gvcf_gq_binsize = gvcf_gq_binsize,
-        deepvariant_docker = deepvariant_docker
+        deepvariant_docker = deepvariant_docker_default
     }
 
     call call_variants { input:
         model_tar = model_tar,
         examples_tar = make_examples.examples_tar,
-        deepvariant_docker = deepvariant_docker
+        deepvariant_docker = deepvariant_docker_default
     }
 
     call postprocess_variants { input:
         ref_fasta_gz = ref_fasta_gz,
         call_variants_output = call_variants.call_variants_output,
         gvcf_tfrecords_tar = make_examples.gvcf_tfrecords_tar,
-        deepvariant_docker = deepvariant_docker
+        deepvariant_docker = deepvariant_docker_default
     }
 
     output {
