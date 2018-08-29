@@ -4,8 +4,8 @@
     "DVGLx_test.htsget_format": "CRAM",
     "DVGLx_test.ranges": ["chr12:111766922-111817529","chr17:43045629-43125483"],
     "DVGLx_test.ref_fasta_gz": "dx://file-BFBv6J80634gkvZ6z100VGpp",
-    "DVGLx_test.model_tar": "dx://file-FFP6xZ804PyP2v25G2B7b44y",
-    "DVGLx_test.deepvariant_docker": "quay.io/mlin/deepvariant:0.6.1",
+    "DVGLx_test.model_tar": "dx://file-FK3PKKQ04Py6V8Bj5YYpY60q",
+    "DVGLx_test.deepvariant_docker": "quay.io/mlin/deepvariant:0.7.0",
     "DVGLx_test.output_name": "hg38_CEUtrio_ALDH2_BRCA1",
     "DVGLx_test.expected": "19chr12,186chr17,"
 }
